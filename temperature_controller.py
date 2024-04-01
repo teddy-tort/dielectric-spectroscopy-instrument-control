@@ -18,7 +18,8 @@ def run_command_line():
         commands = input("LS>").upper().split(";")   # wait for command
 
         for command_str in commands:
-            command_str.strip(' ')
+            command_str = command_str.strip(' ')
+            # print(f"Execute command: {command_str}")
             command = command_str.split(' ')
 
             if command[0] == "QUIT" or command[0] == "EXIT":
