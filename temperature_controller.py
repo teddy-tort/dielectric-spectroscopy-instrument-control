@@ -91,6 +91,7 @@ def run_command_line():
                     print('Response: {}\n'.format(message_back))
             
             elif command[0] == "WAIT":
+                print(f"Going to wait {command[1]} seconds")
                 time.sleep(float(command[1]))
 
             else:

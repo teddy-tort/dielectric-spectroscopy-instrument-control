@@ -35,7 +35,7 @@ class DielectricSpec(CSVFile):
         super(self.__class__, self).__init__(path, filename, comment)
         unique_frequencies = list(set(frequencies))         # remove repeated entries
         unique_frequencies.sort()                           # sort the list
-        self.unique_frequencies = unique_frequencies[::-1]  # reverse order (big to small)
+        self.unique_frequencies = unique_frequencies
 
         self.bridge_type = bridge.upper()
         if self.bridge_type[0:2] == 'AH' or self.bridge_type == 'FAKE':
