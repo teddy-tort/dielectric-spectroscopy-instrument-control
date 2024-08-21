@@ -197,7 +197,7 @@ class PlotWidget(QWidget):
         self.file = None
         self.base_path = sys_argv[1]
         self.filename = sys_argv[2]
-        self.frequencies = [int(f) for f in sys_argv[3].split(",")]
+        self.frequencies = [int(f) for f in sys_argv[3].split(",")[::-1]]
         self.voltage = float(sys_argv[4])
         self.averaging = int(sys_argv[5])
         self.dc_bias_setting = sys_argv[6]

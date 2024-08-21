@@ -103,6 +103,8 @@ class GpibServer:
                     self.writing_q_to_bridge = False
                 # print('Reading from LS')
                 msgout = self.ls.read()
+            else:
+                msgout = "error"
         elif dev_id in ["AH", "HP"]:
             if command[0] == "W":
                 if message == "Q":
@@ -125,6 +127,8 @@ class GpibServer:
                 print("Formatted: Notation: {}; Labeling: {}; IEEE-488.2: {}; Field Width: {}.".format(*AH.formatting))
                 self.bridge.write("UNITS {}".format(AH.units))
                 print("Set units to {}.".format(AH.units))
+            else:
+                msgout = "error"
         else:
             msgout = f'Did not give a valid device id: {dev_id}'
         return msgout
