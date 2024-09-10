@@ -1,51 +1,41 @@
 """A script used to retrieve important, but user dependent things"""
 
-import sys
+import subprocess
 import os
+import socket
 
 
-def serialport():
-    """Finds the serialport depending on what system you're running on"""
-    if os.name == 'posix':
-        if sys.platform == 'linux2' or sys.platform == 'linux': # for linux, may need to change ending number
-            # platform = 'lin'
-            port = '/dev/ttyUSB0'
-        elif sys.platform == 'darwin': # it is possible that the serial number is different, "ls /dev" in a terminal to find out
-            # platform = 'mac'
-            port = '/dev/tty.usbserial-PX9HMPBU'
-    elif os.name == 'nt':
-            # platform = 'win'
-            port = ''
-    else:
-        port = ''
-    return port
+def port():
+    return 62538
 
 
-def googledrive():
-    """locates where your google drive is depending on who you are currently generalized for mac users."""
-    """For compatiblity, you must rename "Google Drive" folder to "Google_Drive" which will raise an error for
-    google drive, which is easily fixed by relocating the folder for it"""
-    import getpass
-    user = getpass.getuser()
-    if sys.platform == 'darwin':  # for mac users
-        path = '/Users/%s/Google_Drive/' % (user)
-    # elif (user == 'etortorici' or user == 'root') and sys.platform == 'linux2':  # legacy for linux
-    #     # path = '/home/etortorici/Google_Drive/'
-    #     path = '/home/etortorici/Documents/'
-    elif sys.platform == 'linux':
-        if user == 'etortoric':
-            path = '/home/etortoric/Documents/Google_Drive'
+def base_path():
+    user = os.getlogin()
+    if os.name == 'nt':
+        if user == 'etcto' and socket.gethostname() != "DESKTOP-N5IGGUN":
+            path = f"D:\\Google Drive\\My Drive"
+        # elif user == 'Chuck':
         else:
-            path = ''
+            path = f'C:\\Users\\{user}\\Documents\\'
     else:
-        #if user == 'Chuck':
-        if os.name == 'nt':
-            if user == 'etcto':
-                path = 'G:\\My Drive'
-            # elif user == 'Chuck':
-            else:
-                path = 'C:\\Users\\%s\\Google Drive' % user
-        else:
-            path = ''
-    # print(f'\n\n\n{path}\n\n\n')
+        path = ''
+    return path
+
+
+def uuid():
+    cmd = 'wmic csproduct get uuid'
+    uuid_ = str(subprocess.check_output(cmd))
+    pos1 = uuid_.find("\\n") + 2
+    uuid_ = uuid_[pos1:-15]
+    return uuid_
+
+
+def onedrive():
+    uu_id = uuid()
+    if uu_id == "1F0050C0-00C6-0C00-E9B7-BCAEC5601728":
+        path = "F:\\OneDrive - UCB-O365\\Rogerslab3"
+    elif uu_id == "4C4C4544-0053-4D10-8058-B4C04F503432":
+        path = "D:\\OneDrive - school\\OneDrive - UCB-O365\\Rogerslab3"
+    else:
+        path = ""
     return path

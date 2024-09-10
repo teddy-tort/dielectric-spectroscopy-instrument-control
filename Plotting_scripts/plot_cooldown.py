@@ -6,7 +6,7 @@ if __name__ == "__main__":
     import sys; sys.path.append('..')
     import GPIB.get as get
 
-    filepath = os.path.join(get.googledrive(), 'Dielectric_data', 'Teddy')
+    filepath = os.path.join(get.google_drive(), 'Dielectric_data', 'Teddy')
     filenames = data_files.file_name(6, 15, 2016)
     plotters = []
     for filename in filenames:

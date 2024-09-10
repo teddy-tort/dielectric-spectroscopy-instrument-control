@@ -1,0 +1,13 @@
+
+---------------------------------------------------------------------
+PID? -- returns the current PID control loop values.
+PID X, Y, Z -- sets P to X, I to Y and D to Z.
+
+RAMP? -- returns the current ramp-rate in K/minute.
+RAMP X -- change the ramp-rate to X Kelvin/minute.
+
+SP? -- returns the temperature set-point in Kelvin.
+SP X -- change the set-point to X Kelvin (will ramp to this value).
+
+RAW [message] -- send [message] to the LakeShore over GPIB.
+---------------------------------------------------------------------

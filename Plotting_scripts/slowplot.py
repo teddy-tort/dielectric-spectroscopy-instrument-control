@@ -162,7 +162,7 @@ if __name__ == "__main__":
     sys.path.append('..')
     import GPIB.get as get
 
-    filepath = os.path.join(get.googledrive(), 'Dielectric_data', 'Teddy')
+    filepath = os.path.join(get.google_drive(), 'Dielectric_data', 'Teddy')
     filenames = ['Temp_sweep_1464811905_09.csv', 'Hysteresis_Check_1464971562_48.csv']
     plotters = []
     for filename in filenames:

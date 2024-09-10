@@ -1,0 +1,6 @@
+Temperature Controller Interface
+written by Teddy Tortorici
+
+Commands are not case-sensitive.
+
+help - for more options
