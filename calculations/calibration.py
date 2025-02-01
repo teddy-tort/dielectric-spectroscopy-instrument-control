@@ -1,7 +1,6 @@
 import numpy as np
 from files.csv import CSVFile
 from calculations.capacitors import find_gap
-from numba import njit
 
 # unicodes = ["\u2070", "\u00B9", "\u00B2", "\u00B3", "\u2074", "\u2075", "\u2076", "\u2077", "\u2078", "\u2079"]
 superscripts = ["", " T", " T\u00B2", " T\u00B3", " T\u2074", " T\u2075",
@@ -65,7 +64,6 @@ class Calibration:
         return self.bare_fit(temperature, self.loss_fit_parameters[frequency])
 
     @staticmethod
-    @njit
     def bare_fit(temperature: float, fit_params: np.ndarray) -> float:
         """
         Get the capacitance at a given temperature and frequency

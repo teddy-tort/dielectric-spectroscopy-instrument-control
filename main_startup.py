@@ -1,10 +1,14 @@
 import os
+from pathlib import Path
 from PySide6.QtWidgets import QApplication, QDialog
 import get
 import sys
 import time
+import subprocess
 from gui.dialogs.new_file import NewFileDialog
 
+parent = Path(__file__).parent
+venv_activation = parent / "venv/Scripts/activate.bat"
 
 def launch_process(command, leave_open=True):
     """
@@ -12,11 +16,16 @@ def launch_process(command, leave_open=True):
     :param command: command to execute.
     :param leave_open: do you want to leave the cmd prompt open when finished?
     """
+    print("launching process: {}".format(command))
     if leave_open:
         open_key = "k"
     else:
         open_key = "c"
-    os.system("start cmd /{} {}".format(open_key, command))
+    system_message = '''start cmd /{} "{} && {}"'''.format(open_key, str(venv_activation), command)
+    # system_message = """{} && {}""".format(str(venv_activation), command)
+    print(system_message)
+    os.system(system_message)
+    # subprocess.run(["cmd", f"/{open_key}", system_message], shell=True)
 
 
 if __name__ == "__main__":
@@ -40,7 +49,7 @@ if __name__ == "__main__":
         creation_datetime = dialog.date
 
         """LAUNCH SERVER"""
-        launch_process("py server.py {} {}".format(bridge, ls_num), leave_open=True)
+        launch_process("python {} {} {}".format(parent / "server.py", bridge, ls_num), leave_open=False)
         print("Launched server")
 
         print("Launched data taking process {m:02}/{d:02}/{y:04} at {h:02}:{min:02}:{s}".format(
@@ -67,7 +76,7 @@ if __name__ == "__main__":
         full_comment = str(dialog.presets)
 
         """CREATE DATA FILE"""
-        launch_process('py data_taker.py "{path}" "{fname}" "{f}" "{v}" "{ave}" "{dc}" "{b}" "{ls}" "{c}" "{p}"'.format(
+        launch_process('python data_taker.py "{path}" "{fname}" "{f}" "{v}" "{ave}" "{dc}" "{b}" "{ls}" "{c}" "{p}"'.format(
             path=path,
             fname=filename,
             f=str(dialog.frequencies).strip("[").strip("]"),
@@ -78,10 +87,10 @@ if __name__ == "__main__":
             ls=ls_num,
             c=full_comment,
             p=purpose
-        ), leave_open=True)
+        ), leave_open=False)
 
         time.sleep(5)
-        launch_process("py temperature_controller.py", leave_open=True)
+        launch_process("python temperature_controller.py", leave_open=False)
         print("Launched server")
     else:
         print("Canceled")
